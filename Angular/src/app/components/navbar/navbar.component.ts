@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup,FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  searchForm:FormGroup;
+
+  constructor() { };
 
   ngOnInit() {
-  }
+    this.searchForm = new FormGroup({
+      search:new FormControl()
+    });
+  };
 
   title: String = "Online Shopping";
   nav_items = {
@@ -22,5 +28,8 @@ export class NavbarComponent implements OnInit {
     }
   };
 
+  search():void{
+    console.log("Search clicked");
+  };
 
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-add-product',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddProductComponent implements OnInit {
 
-  constructor() { }
+  addProductForm: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.addProductForm = this.fb.group({
+      p_name:["",Validators.required,Validators.minLength(5),Validators.maxLength(8)],
+      p_description:["",Validators.required],
+    });
   }
 
   items = {
@@ -260,5 +268,7 @@ export class AddProductComponent implements OnInit {
     }
   };
 
-  
+  addProduct(): void {
+    console.log(this.addProductForm);
+  }
 }
