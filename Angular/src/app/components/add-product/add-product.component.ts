@@ -11,14 +11,39 @@ export class AddProductComponent implements OnInit {
 
   addProductForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  validationMessages = {
+    "p_name": {
+      "required": "* Name is required"
+    },
+    "p_rate": {
+      "required": "* Rate is required"
+    },
+    "p_quantity": {
+      "required": "* Quantity is required"
+    },
+    "p_company": {
+      "required": "* Company name is required"
+    },
+    "p_country": {
+      "required": "* Country name is required"
+    },
+    "p_category": {
+      "required": "* Category is required"
+    },
+    "p_description": {
+      "required": "* Description is required"
+    }
+  };
 
-  ngOnInit() {
-    this.addProductForm = this.fb.group({
-      p_name:["",Validators.required,Validators.minLength(5),Validators.maxLength(8)],
-      p_description:["",Validators.required],
-    });
-  }
+  formErrors = {
+    "p_name": "",
+    "p_rate": "",
+    "p_quantity": "",
+    "p_company": "",
+    "p_country": "",
+    "p_category": "",
+    "p_description": ""
+  };
 
   items = {
     "Men": {
@@ -268,7 +293,40 @@ export class AddProductComponent implements OnInit {
     }
   };
 
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.addProductForm = this.fb.group({
+      p_name: ["", Validators.required],
+      p_rate: ["", Validators.required],
+      p_quantity: ["", Validators.required],
+      p_company: ["", Validators.required],
+      p_country: ["", Validators.required],
+      p_category: ["", Validators.required],
+      p_description: ["", Validators.required],
+    });
+  };
+
+  showValidationError(group: FormGroup): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const formItem = group.get(key);
+      
+      if(formItem && !formItem.valid){
+        const messages = this.validationMessages[key];
+
+        for (const errorKey in formItem.errors){
+          if(errorKey){
+            this.formErrors[key] += messages[errorKey] + " ";
+          }
+        }
+      }
+
+    });
+  };
+
+
   addProduct(): void {
-    console.log(this.addProductForm);
-  }
+    this.showValidationError(this.addProductForm);
+    console.log(this.formErrors);
+  };
 }

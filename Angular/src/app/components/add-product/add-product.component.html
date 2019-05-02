@@ -6,16 +6,16 @@
         <div class="form-group ">
           <label for="p_name">Name of product : </label>
           <input type="text" formControlName="p_name" class="form-control"
-            [ngClass]="{'is-invalid': addProductForm.get('p_name').errors && (addProductForm.get('p_name').touched || addProductForm.get('p_name').dirty)}"
+            [ngClass]="{'is-invalid': (addProductForm.get('p_name').errors.required || addProductForm.get('p_name').errors.minlength )&& (addProductForm.get('p_name').touched || addProductForm.get('p_name').dirty)}"
             name="p_name" id="" aria-describedby="helpId" placeholder="Name of product">
-          <small id="helpId" class="form-text text-muted invalid-feedback">* required the name of product!</small>
+          <div class="form-text text-red invalid-feedback"> * Required the name of product!</div>
         </div>
         <div class="form-group">
           <label for="p_description">Description : </label>
           <textarea formControlName="p_description" class="form-control"
             [ngClass]="{'is-invalid': addProductForm.get('p_description').errors && (addProductForm.get('p_description').touched || addProductForm.get('p_description').dirty)}"
-            name="p_description" id="" rows="3"></textarea>
-          <div class="invalid-tooltip">* Required</div>
+            name="p_description" id="" rows="3" placeholder="Enter details about product."></textarea>
+          <div class="form-text text-red invalid-feedback"> * Required</div>
         </div>
         <!-- <div class="form-group ">
           <label for="">Name of product : </label>
@@ -68,3 +68,5 @@
     </tr>
   </table>
 </div>
+
+{{this.formErrors | json}}
