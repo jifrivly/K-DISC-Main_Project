@@ -46,9 +46,10 @@
           <label for="p_category">Select category of product : </label>
           <select formControlName="p_category" class="form-control" name="p_category" id=""
             [ngClass]="{'is-invalid': formErrors.p_category}" (blur)="showValidationError()">
-            <option>Category 1</option>
-            <option>Category 2</option>
-            <option>Category 3</option>
+            <option disabled [selected]="true"> Select category of product </option>
+            <option value="men"> Men </option>
+            <option value="women"> Women </option>
+            <option value="kids"> Kids </option>
           </select>
           <div class="form-text text-red invalid-feedback">{{this.formErrors.p_category}}</div>
         </div>
@@ -62,50 +63,12 @@
         </div>
 
         <div class="text-right">
-          <button type="submit" class="btn btn-success">Save Product</button>
+          <button type="submit" class="btn btn-success" [disabled]="this.addProductForm.invalid">Save Product</button>
         </div>
       </form>
     </div>
     <div class="col col-12 col-sm-12 col-md-12 col-lg-3"></div>
   </div>
 </div>
-
+<br/>
 {{this.formErrors | json}}
-
-<div class="container">
-  <br><br>
-  <table class="border border-primary table table-responsive">
-    <tr class="text-center">
-      <th>FormGroup</th>
-      <th>Name</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>
-        Form : <br>
-        Dirty : {{addProductForm.dirty}} <br>
-        Errors : {{addProductForm.errors | json}} <br>
-        valid : {{addProductForm.valid}} <br>
-        Touched : {{addProductForm.touched}} <br>
-        Values : {{addProductForm.value | json}} <br>
-
-      </td>
-      <td>
-        Name : <br>
-        Dirty : {{addProductForm.controls.p_name.dirty}} <br>
-        Errors : {{addProductForm.controls.p_name.errors | json}} <br>
-        valid : {{addProductForm.controls.p_name.valid}} <br>
-        Touched : {{addProductForm.controls.p_name.touched}} <br>
-        Values : {{addProductForm.controls.p_name.value}} <br>
-      </td>
-      <td>
-        Description : <br>
-        Dirty : {{addProductForm.controls.p_description.dirty}} <br>
-        Errors : {{addProductForm.controls.p_description.errors |json}} <br>
-        valid : {{addProductForm.controls.p_description.valid}} <br>
-        Touched : {{addProductForm.controls.p_description.touched}} <br>
-        Values : {{addProductForm.controls.p_description.value}} <br>
-      </td>
-    </tr>
-  </table>
-</div>

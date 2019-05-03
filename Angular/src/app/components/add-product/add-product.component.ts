@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { ProductModel } from 'src/app/product.model';
+import { ProductService } from 'src/app/services/product.service';
+
+
 
 @Component({
   selector: 'app-add-product',
@@ -10,21 +14,22 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class AddProductComponent implements OnInit {
 
   addProductForm: FormGroup;
+  productData: ProductModel;
 
   validationMessages = {
     "p_name": {
       "required": "* Name is required",
-      "minlength":"* Name is too short",
-      "maxlength":"* Name is too long"
+      "minlength": "* Name is too short",
+      "maxlength": "* Name is too long"
     },
     "p_price": {
       "required": "* Rate is required",
-      "min":"* Rate must grater than Zero",
-      "max":"* Rate must not exceed 1 Lakh"
+      "min": "* Rate must grater than Zero",
+      "max": "* Rate must not exceed 1 Lakh"
     },
     "p_quantity": {
       "required": "* Quantity is required",
-      "min":"* Quantity must grater than Zero"
+      "min": "* Quantity must grater than Zero"
     },
     "p_company": {
       "required": "* Company name is required"
@@ -37,8 +42,8 @@ export class AddProductComponent implements OnInit {
     },
     "p_description": {
       "required": "* Description is required",
-      "minlength":"* Description is too short",
-      "maxlength":"* Description is too long"
+      "minlength": "* Description is too short",
+      "maxlength": "* Description is too long"
     }
   };
 
@@ -300,22 +305,27 @@ export class AddProductComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) { };
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService) {
+
+  };
 
   ngOnInit() {
-    this.addProductForm = this.fb.group({
-      p_name: ["", [Validators.required,Validators.minLength(3),Validators.maxLength(100)]],
-      p_price: ["", [Validators.required,Validators.min(1),Validators.max(100000)]],
-      p_quantity: ["", [Validators.required,Validators.min(1)]],
-      p_company: ["", [Validators.required]],
-      p_country: ["", [Validators.required]],
-      p_category: ["", [Validators.required]],
-      p_description: ["", [Validators.required,Validators.minLength(25),Validators.maxLength(10000)]],
+    this.addProductForm = this.formBuilder.group({
+      p_name: ["sample data", [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      p_price: ["123", [Validators.required, Validators.min(1), Validators.max(100000)]],
+      p_quantity: ["123", [Validators.required, Validators.min(1)]],
+      p_company: ["sample data", [Validators.required]],
+      p_country: ["sample data", [Validators.required]],
+      p_category: ["men", [Validators.required]],
+      p_description: ["Lorem ipsum dolor, sit amet consectetur adipisicing elit.", [Validators.required, Validators.minLength(25), Validators.maxLength(10000)]],
     });
 
-    this.addProductForm.valueChanges.subscribe((value)=>{
+    this.addProductForm.valueChanges.subscribe((value) => {
       this.showValidationError(this.addProductForm);
     });
+
   };
 
 
@@ -323,21 +333,21 @@ export class AddProductComponent implements OnInit {
     Object.keys(group.controls).forEach((key: string) => {
       const formItem = group.get(key);
       this.formErrors[key] = "";
-      if(formItem && !formItem.valid && (formItem.touched || formItem.dirty)){
+      if (formItem && !formItem.valid && (formItem.touched || formItem.dirty)) {
         const messages = this.validationMessages[key];
-        for (const errorKey in formItem.errors){
-          if(errorKey){
+        for (const errorKey in formItem.errors) {
+          if (errorKey) {
             this.formErrors[key] += messages[errorKey] + " ";
           }
         }
       }
-
     });
   };
 
 
   addProduct(): void {
-    this.showValidationError(this.addProductForm);
-    console.log(this.formErrors);
+    this.productData = this.addProductForm.value;
+    this.productService.addProduct(this.productData);
+    console.log(this.productData);
   };
 }
