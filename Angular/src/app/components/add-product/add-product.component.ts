@@ -13,13 +13,18 @@ export class AddProductComponent implements OnInit {
 
   validationMessages = {
     "p_name": {
-      "required": "* Name is required"
+      "required": "* Name is required",
+      "minlength":"* Name is too short",
+      "maxlength":"* Name is too long"
     },
-    "p_rate": {
-      "required": "* Rate is required"
+    "p_price": {
+      "required": "* Rate is required",
+      "min":"* Rate must grater than Zero",
+      "max":"* Rate must not exceed 1 Lakh"
     },
     "p_quantity": {
-      "required": "* Quantity is required"
+      "required": "* Quantity is required",
+      "min":"* Quantity must grater than Zero"
     },
     "p_company": {
       "required": "* Company name is required"
@@ -31,13 +36,15 @@ export class AddProductComponent implements OnInit {
       "required": "* Category is required"
     },
     "p_description": {
-      "required": "* Description is required"
+      "required": "* Description is required",
+      "minlength":"* Description is too short",
+      "maxlength":"* Description is too long"
     }
   };
 
   formErrors = {
     "p_name": "",
-    "p_rate": "",
+    "p_price": "",
     "p_quantity": "",
     "p_company": "",
     "p_country": "",
@@ -293,27 +300,31 @@ export class AddProductComponent implements OnInit {
     }
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) { };
 
   ngOnInit() {
     this.addProductForm = this.fb.group({
-      p_name: ["", Validators.required],
-      p_rate: ["", Validators.required],
-      p_quantity: ["", Validators.required],
-      p_company: ["", Validators.required],
-      p_country: ["", Validators.required],
-      p_category: ["", Validators.required],
-      p_description: ["", Validators.required],
+      p_name: ["", [Validators.required,Validators.minLength(3),Validators.maxLength(100)]],
+      p_price: ["", [Validators.required,Validators.min(1),Validators.max(100000)]],
+      p_quantity: ["", [Validators.required,Validators.min(1)]],
+      p_company: ["", [Validators.required]],
+      p_country: ["", [Validators.required]],
+      p_category: ["", [Validators.required]],
+      p_description: ["", [Validators.required,Validators.minLength(25),Validators.maxLength(10000)]],
+    });
+
+    this.addProductForm.valueChanges.subscribe((value)=>{
+      this.showValidationError(this.addProductForm);
     });
   };
 
-  showValidationError(group: FormGroup): void {
+
+  showValidationError(group: FormGroup = this.addProductForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const formItem = group.get(key);
-      
-      if(formItem && !formItem.valid){
+      this.formErrors[key] = "";
+      if(formItem && !formItem.valid && (formItem.touched || formItem.dirty)){
         const messages = this.validationMessages[key];
-
         for (const errorKey in formItem.errors){
           if(errorKey){
             this.formErrors[key] += messages[errorKey] + " ";
