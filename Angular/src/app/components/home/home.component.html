@@ -1,3 +1,22 @@
-<p>
-  home works!
-</p>
+<div class="container">
+  <div class="row">
+    <div *ngFor="let i of [1,2,3,4]" class="col col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+      <div class="card border-info">
+        <img class="card-img-top" src="holder.js/100px180/" alt="product image">
+        <div class="card-body">
+          <h4 class="card-title">Product name here</h4>
+          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+            Temporibus dignissimos vero iusto. Consequatur et placeat culpa! 
+            Quos atque provident quod deleniti reprehenderit porro autem magnam, 
+            quas ut distinctio, molestiae molestias!
+          </p>
+        </div>
+        <div class="card-footer">
+          <i class="fa fa-heart-o "></i>
+          <button type="button" name="cart" id="cart" class="btn btn-success btn-block">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

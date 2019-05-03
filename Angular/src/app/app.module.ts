@@ -9,6 +9,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
+import { CartComponent } from './components/cart/cart.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { ProductComponent } from './components/product/product.component';
 
 
 @NgModule({
@@ -17,7 +20,10 @@ import { AddProductComponent } from './components/add-product/add-product.compon
     NavbarComponent,
     FooterComponent,
     HomeComponent,
-    AddProductComponent
+    AddProductComponent,
+    CartComponent,
+    InvoiceComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
