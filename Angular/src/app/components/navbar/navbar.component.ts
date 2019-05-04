@@ -24,8 +24,11 @@ export class NavbarComponent implements OnInit {
       link: "", text: "Home"
     },
     login: {
-      link: "Add Product", text: "Add Product"
-    }
+      link: "Add-Product", text: "Add Product"
+    },
+    cart:{
+      link:"cart", text:""
+    },
   };
 
   search():void{
