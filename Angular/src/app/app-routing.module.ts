@@ -9,10 +9,13 @@ import { ProductComponent } from './components/product/product.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
+  {path:"product",component:ProductComponent},
+
+  
   { path: "Add-Product", component: AddProductComponent },
   { path: "cart", component: CartComponent },
 
-  {path:"product",component:ProductComponent},
+  
   {path:"invoice",component:InvoiceComponent},
   
 

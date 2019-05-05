@@ -5,15 +5,25 @@
     box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32) !important;
 }
 
-.card-title{
-    color:hsl(341, 100%, 65%) ;
-}
-
 .card-img-top{
     height: 300px;
 }
 
-.card-footer{
+.card-title{
+    color:hsl(341, 100%, 65%) ;
+}
+
+.card-title{
+    margin-bottom: 0.40rem !important;
+}
+
+.card-text{
+    font-size: 12px;
+}
+
+.card-footer {
+    padding: 0.50rem 1.25rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
     background-color: #ffffff;
 }
 

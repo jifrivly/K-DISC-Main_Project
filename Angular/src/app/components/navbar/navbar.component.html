@@ -25,18 +25,25 @@
             <input formControlName="search" name="search" class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <span class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" [routerLink]="" id="dropdownId" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"> <i class="far fa-user-circle text-light fa-2x"></i> </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownId">
-                <a class="dropdown-item" [routerLink]=""> <i class="fas fa-sign-in-alt"></i> Login</a>
-                <a class="dropdown-item" [routerLink]=""> <i class="fas fa-cog"></i> Settings</a>
-            </div>
-        </span>
-        <span class="nav-item ">
-            <a class="nav-link" [routerLink]="nav_items.cart.link" routerLinkActive="active"><i
-                    class="fas fa-shopping-cart text-light fa-2x"></i></a>
-        </span>
-
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link text-light" [routerLink]="" routerLinkActive="active"><i
+                        class="fas fa-sign-in-alt fa-1"></i> Login &
+                    Signup</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" [routerLink]="" routerLinkActive="active" id="dropdownId"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+                        class="far fa-user-circle text-light fa-1"></i> </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" [routerLink]=""> <i class="fas fa-sign-out-alt"></i> Logout </a>
+                    <a class="dropdown-item" [routerLink]=""> <i class="fas fa-cog"></i> Settings</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-light" [routerLink]="nav_items.cart.link" routerLinkActive="active"><i
+                        class="fas fa-shopping-cart fa-1"></i> Cart </a>
+            </li>
+        </ul>
     </div>
 </nav>
