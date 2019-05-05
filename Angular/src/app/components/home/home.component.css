@@ -1,25 +1,31 @@
 .card:hover{
     border: 1px solid #ff7ea7 !important;
-    -webkit-transform: translateY(10px,-10px);
-    transform: translate(10px,-10px);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
     box-shadow: 0 10px 34px 0 rgba(255, 79, 135, 0.32) !important;
 }
+
 .card-title{
-    color:#ff4f87 ;
+    color:hsl(341, 100%, 65%) ;
 }
+
+.card-img-top{
+    height: 300px;
+}
+
 .card-footer{
     background-color: #ffffff;
 }
+
 .card-footer i{
     cursor: pointer;
 }
+
 .card-footer :hover{
     font-size: none;
     font-weight: none;
 }
-.fa-heart-o:hover{
-    color:#ff4f87 !important;
-}
+
 .like{
     position: absolute;
     top: 0;
@@ -35,10 +41,22 @@
     z-index: 1;
     transition: all 200ms ease;
 }
+
 .like:hover{
     color: #ff4f87;
     border: 1px solid #ff4f87;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
 }
+.fa-cart-plus{
+    font-size: 20px;
+}
+
+.fa-cart-plus:hover{
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
 .close{
     position: absolute;
     border: 1px solid red;
@@ -54,7 +72,4 @@
     cursor: pointer;
     z-index: 1;
     transition: all 200ms ease;
-}
-.card-img-top{
-    height: 300px;
 }
