@@ -7,35 +7,7 @@ const product = express.Router();
 
 product.use(bodyParser.urlencoded());
 
-product.get("/", (req, res) => {
-    productModel
-        .find()
-        .then((productList) => {
-            res.status(200).json({ productList });
-        })
-        .catch((err) => {
-            res.status(404).json({
-                text: "Error occurred when fetching product list",
-                error: err
-            });
-        });
-});
-
-product.get("/:p_id", (req, res) => {
-    const p_id = req.params.p_id;
-    productModel
-        .findOne({ _id: p_id })
-        .then((productList) => {
-            res.status(200).json(productList);
-        })
-        .catch((err) => {
-            res.status(404).json({
-                text: "Error occurred when fetching product details",
-                error: err
-            });
-        });
-});
-
+// api request to add single product. 
 product.post("/add", (req, res) => {
     var productData = {
         p_name: req.body.p_name,
@@ -57,13 +29,45 @@ product.post("/add", (req, res) => {
             });
         })
         .catch((err) => {
-            res.status(406).json({
+            res.status(404).json({
                 text: "Product not added, Error occured",
                 error: err
             });
         });
 });
 
+// api request to get list of all product and their details also.
+product.get("/", (req, res) => {
+    productModel
+        .find()
+        .then((productList) => {
+            res.status(200).json({ productList });
+        })
+        .catch((err) => {
+            res.status(404).json({
+                text: "Error occurred when fetching product list",
+                error: err
+            });
+        });
+});
+
+// api request to get specific product details.
+product.get("/:p_id", (req, res) => {
+    const p_id = req.params.p_id;
+    productModel
+        .findOne({ _id: p_id })
+        .then((productList) => {
+            res.status(200).json(productList);
+        })
+        .catch((err) => {
+            res.status(406).json({
+                text: "Error occurred when fetching product details",
+                error: err
+            });
+        });
+});
+
+// api request to update single product. 
 product.post("/update", (req, res) => {
     const p_id = req.body.p_id;
     const updatedProductData = {
@@ -91,10 +95,20 @@ product.post("/update", (req, res) => {
         });
 });
 
-product.get("/delete", (req, res) => {
-    res.status(200).json({
-        text: "product is deleted.."
-    });
+// api request to delete single product. 
+product.post("/delete", (req, res) => {
+    const p_id = req.body.p_id;
+    productModel
+        .findByIdAndDelete({ _id: p_id })
+        .then((data) => {
+            res.status(200).json({ data, text: "product is deleted.." });
+        })
+        .catch((err) => {
+            res.status(406).json({
+                text: "Error occurred when deleting product!",
+                error: err
+            });
+        });
 });
 
 module.exports = product;
