@@ -1,11 +1,23 @@
 const express = require("express");
 const chalk = require("chalk");
+const mongoose = require("mongoose");
 
 const adminRouter = require("./modules/admin");
 const userRouter = require("./modules/user");
 const productRouter = require("./modules/product");
 
 my_app = express();
+
+// mongoDB connection setup
+mongoose
+	.connect("mongodb://localhost:27017/shopDB")
+	.then(() => {
+		console.log("Database connection successful");
+	})
+	.catch((err) => {
+		console.log("Error occured in Database connection, " + err);
+	});
+
 
 my_app.use("/admin", adminRouter);
 my_app.use("/user", userRouter);

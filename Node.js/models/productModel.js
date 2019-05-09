@@ -1,14 +1,5 @@
 const mongoose = require("mongoose");
 
-mongoose
-    .connect("mongodb://localhost:27017/shopDB")
-    .then(() => {
-        console.log("Database connection successful");
-    })
-    .catch((err) => {
-        console.log("Error occured in Database connection, " + err);
-    });
-
 const productSchema = new mongoose.Schema({
     p_name: String,
     p_price: Number,
