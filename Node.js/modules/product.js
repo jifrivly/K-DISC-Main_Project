@@ -57,29 +57,38 @@ product.post("/add", (req, res) => {
             });
         })
         .catch((err) => {
-            res.status(304).json({
-                error: err,
-                text: "Product not added, Error occured"
+            res.status(406).json({
+                text: "Product not added, Error occured",
+                error: err
             });
         });
 });
 
-product.get("/update", (req, res) => {
-    // var updatedProductData={
-    //     p_name: req.body.p_name,
-    //     p_price: req.body.p_price,
-    //     p_quantity: req.body.p_quantity,
-    //     p_company: req.body.p_company,
-    //     p_country: req.body.p_country,
-    //     p_category: req.body.p_category,
-    //     p_description: req.body.p_description
-    // }
+product.post("/update", (req, res) => {
+    const p_id = req.body.p_id;
+    const updatedProductData = {
+        p_name: req.body.p_name,
+        p_price: req.body.p_price,
+        p_quantity: req.body.p_quantity,
+        p_company: req.body.p_company,
+        p_country: req.body.p_country,
+        p_category: req.body.p_category,
+        p_description: req.body.p_description
+    };
 
-    // productModel.updateOne()
-
-    res.status(200).json({
-        text: "product is updated.."
-    });
+    productModel
+        .updateOne({ _id: p_id }, updatedProductData)
+        .then((data) => {
+            res.status(200).json({
+                text: "product is updated.."
+            });
+        })
+        .catch((err) => {
+            res.status(406).json({
+                text: "Product not updated, Error occured",
+                error: err
+            });
+        });
 });
 
 product.get("/delete", (req, res) => {
@@ -87,6 +96,5 @@ product.get("/delete", (req, res) => {
         text: "product is deleted.."
     });
 });
-
 
 module.exports = product;
