@@ -8,11 +8,15 @@ const product = express.Router();
 product.use(bodyParser.urlencoded());
 
 product.get("/", (req, res) => {
-    res.status(200).json({ text: "product list will be here.." });
+    res.status(200).json({
+        text: "product list will be here.."
+    });
 });
 
 product.get("/get", (req, res) => {
-    res.status(200).json({ text: "product details will show here.." });
+    res.status(200).json({
+        text: "product details will show here.."
+    });
 });
 
 product.post("/add", (req, res) => {
@@ -26,24 +30,33 @@ product.post("/add", (req, res) => {
         p_description: req.body.p_description
     };
 
-    productModel
-        .insert(productData)
+    var productData = new productModel(productData);
+    productData
+        .save()
         .then((data) => {
-            res.status(200).json({ data: data, text: "add product working" });
+            res.status(200).json({
+                data: data,
+                text: "add product working"
+            });
         })
         .catch((err) => {
-            res
-                .status(304)
-                .json({ error: err, text: "Product not added, Error occured" });
+            res.status(304).json({
+                error: err,
+                text: "Product not added, Error occured"
+            });
         });
 });
 
 product.get("/update", (req, res) => {
-    res.status(200).json({ text: "product is updated.." });
+    res.status(200).json({
+        text: "product is updated.."
+    });
 });
 
 product.get("/delete", (req, res) => {
-    res.status(200).json({ text: "product is deleted.." });
+    res.status(200).json({
+        text: "product is deleted.."
+    });
 });
 
 // function to get products
