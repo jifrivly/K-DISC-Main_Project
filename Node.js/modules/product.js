@@ -9,7 +9,7 @@ product.use(bodyParser.urlencoded());
 
 // api request to add single product. 
 product.post("/add", (req, res) => {
-    var productData = {
+    const productData = {
         p_name: req.body.p_name,
         p_price: req.body.p_price,
         p_quantity: req.body.p_quantity,
@@ -19,8 +19,8 @@ product.post("/add", (req, res) => {
         p_description: req.body.p_description
     };
 
-    var productData = new productModel(productData);
-    productData
+    const newProduct = new productModel(productData);
+    newProduct
         .save()
         .then((data) => {
             res.status(200).json({
