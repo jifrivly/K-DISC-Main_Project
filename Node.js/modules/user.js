@@ -8,7 +8,10 @@ const user = express.Router();
 user.use(bodyParser.urlencoded());
 
 user.get("/", (req, res) => {
-    res.status(404).json({ text: "User module working, here nothing found" });
+    res.status(404).json({
+        text:
+            "User module working, please use /signup, /login, /delete, /check/email or /check/mobile"
+    });
 });
 
 // create new user
@@ -42,31 +45,38 @@ user.post("/login", (req, res) => {
         email: req.body.email,
         password: req.body.password
     };
-    userModel.findOne({ $and: [loginData] }, (err, data) => {
-        if (err) {
-            res.status(406).json({
-                text: "Error occurred when querying",
-                error: err
-            });
+    userModel.findOne(
+        {
+            $and: [loginData]
+        },
+        (err, data) => {
+            if (err) {
+                res.status(406).json({
+                    text: "Error occurred when querying",
+                    error: err
+                });
+            }
+            if (data) {
+                res.status(200).json({
+                    text: "User found",
+                    data: data
+                });
+            } else {
+                res.status(404).json({
+                    text: "user not found"
+                });
+            }
         }
-        if (data) {
-            res.status(200).json({
-                text: "User found",
-                data: data
-            });
-        } else {
-            res.status(404).json({
-                text: "user not found"
-            });
-        }
-    });
+    );
 });
 
 // Delete a user details
 user.post("/delete", (req, res) => {
     const user_id = req.body.user_id;
     userModel
-        .deleteOne({ _id: user_id })
+        .deleteOne({
+            _id: user_id
+        })
         .then((data) => {
             res.status(200).json({
                 text: "user deleted successfully.",
@@ -84,37 +94,55 @@ user.post("/delete", (req, res) => {
 // email check
 user.post("/check/email", (req, res) => {
     const email = req.body.email;
-    userModel.findOne({ email: email }, (err, data) => {
-        if (err) {
-            res.status(406).json({
-                text: "Error occurred when querying",
-                error: err
-            });
+    userModel.findOne(
+        {
+            email: email
+        },
+        (err, data) => {
+            if (err) {
+                res.status(406).json({
+                    text: "Error occurred when querying",
+                    error: err
+                });
+            }
+            if (data) {
+                res.status(200).json({
+                    text: "email found"
+                });
+            } else {
+                res.status(404).json({
+                    text: "email not found"
+                });
+            }
         }
-        if (data) {
-            res.status(200).json({ text: "email found" });
-        } else {
-            res.status(404).json({ text: "email not found" });
-        }
-    });
+    );
 });
 
 // phone check
 user.post("/check/mobile", (req, res) => {
     const mobile = req.body.mobile;
-    userModel.findOne({ mobile: mobile }, (err, data) => {
-        if (err) {
-            res.status(406).json({
-                text: "Error occurred when querying",
-                error: err
-            });
+    userModel.findOne(
+        {
+            mobile: mobile
+        },
+        (err, data) => {
+            if (err) {
+                res.status(406).json({
+                    text: "Error occurred when querying",
+                    error: err
+                });
+            }
+            if (data) {
+                res.status(200).json({
+                    text: "mobile found"
+                });
+            } else {
+                res.status(404).json({
+                    text: "mobile not found"
+                });
+            }
         }
-        if (data) {
-            res.status(200).json({ text: "mobile found" });
-        } else {
-            res.status(404).json({ text: "mobile not found" });
-        }
-    });
+    );
 });
 
 module.exports = user;
