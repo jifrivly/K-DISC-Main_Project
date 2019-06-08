@@ -1,11 +1,8 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 const adminModel = require("../models/adminModel");
 
 const admin = express.Router();
-
-admin.use(bodyParser.urlencoded());
 
 admin.post("/", (req, res) => {
     let username = req.body.username;

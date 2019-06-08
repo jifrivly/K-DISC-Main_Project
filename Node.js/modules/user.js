@@ -1,11 +1,9 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 const userModel = require("../models/userModel");
 
 const user = express.Router();
 
-user.use(bodyParser.urlencoded());
 
 user.get("/", (req, res) => {
     res.status(404).json({

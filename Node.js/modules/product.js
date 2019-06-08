@@ -1,14 +1,12 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 
 const productModel = require("../models/productModel");
 
 const product = express.Router();
 
-product.use(bodyParser.urlencoded());
-
 // api request to add single product. 
 product.post("/add", (req, res) => {
+
     const productData = {
         p_name: req.body.p_name,
         p_price: req.body.p_price,
