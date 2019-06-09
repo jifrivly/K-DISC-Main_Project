@@ -17,7 +17,7 @@ admin.post("/", (req, res) => {
         .findOne({
             $and: [adminData]
         })
-        .then((data) => {
+        .then(data => {
             if (data) {
                 res.status(200).json({
                     text: "User found",
@@ -29,7 +29,7 @@ admin.post("/", (req, res) => {
                 });
             }
         })
-        .catch((err) => {
+        .catch(err => {
             if (err) {
                 res.status(406).json({
                     text: "Error occurred when querying",
