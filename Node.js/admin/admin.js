@@ -1,6 +1,6 @@
 const express = require("express");
 
-const adminModel = require("../models/adminModel");
+const adminModel = require("../admin/adminModel");
 
 const admin = express.Router();
 

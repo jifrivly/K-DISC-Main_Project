@@ -21,4 +21,24 @@ userSchema.methods.generateJWT = function () {
     }, "1234");
 };
 
+userSchema.methods.findUser = function (email, password) {
+    userSchema.findOne({ email: email }, (err, user) => {
+        if (err) { return err };
+        if (!user) { return false }
+        if (user) {
+            if (this.checkPassword(password)) {
+                return true;
+            }
+        };
+    });
+};
+
+userSchema.methods.checkPassword = function (password) {
+    userSchema.findOne({ password: password }, (err, user) => {
+        if (err) { return err };
+        if (!user) { return false };
+        if (user) { return true };
+    });
+};
+
 module.exports = mongoose.model("user", userSchema);
